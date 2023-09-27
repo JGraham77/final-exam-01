@@ -8,8 +8,8 @@ export interface Users {
 }
 
 export interface Categories {
-    id: number;
-    name: string;
+    id?: number;
+    name?: string;
 }
 
 export interface NewBooks {

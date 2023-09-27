@@ -11,7 +11,7 @@ const AllBooks = (props: BooksProps) => {
 
     useEffect(() => {
         GET("/api/books").then(setBooks);
-    });
+    }, []);
     return (
         <div>
             {books.map((book) => (

@@ -40,7 +40,7 @@ const App = (props: AppProps) => {
                         element={<h1>Update Book</h1>}
                     />
                     <Route
-                        path="/:id"
+                        path="/books/:id"
                         element={<h1>One Book</h1>}
                     />
                 </Routes>
