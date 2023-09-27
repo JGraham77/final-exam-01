@@ -2,6 +2,8 @@ import Swal from "sweetalert2";
 
 type VALID_METHODS = "GET" | "POST" | "PUT" | "DELETE";
 
+export const TOKEN_KEY = "token";
+
 export const GET = (url: string) => fetcher(url);
 export const POST = (url: string, data: any) => fetcher(url, "POST", data);
 export const PUT = (url: string, data: any) => fetcher(url, "PUT", data);
