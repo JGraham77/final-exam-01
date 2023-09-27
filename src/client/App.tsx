@@ -9,6 +9,7 @@ import AllBooks from "./views/AllBooks";
 import NewBook from "./views/NewBook";
 import PrivateRoute from "./components/PrivateRoute";
 import Update from "./views/Update";
+import BookDetails from "./views/BookDetails";
 
 interface AppProps {}
 
@@ -44,11 +45,19 @@ const App = (props: AppProps) => {
                     />
                     <Route
                         path="/books/:id/update"
-                        element={<Update />}
+                        element={
+                            <PrivateRoute>
+                                <Update />
+                            </PrivateRoute>
+                        }
                     />
                     <Route
                         path="/books/:id"
-                        element={<h1>One Book</h1>}
+                        element={
+                            <PrivateRoute>
+                                <BookDetails />
+                            </PrivateRoute>
+                        }
                     />
                 </Routes>
             </main>

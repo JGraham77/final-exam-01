@@ -51,6 +51,7 @@ const NewBook = () => {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                 />
+                <label htmlFor="categories">Categories</label>
                 <select
                     name="categories"
                     id="categories"

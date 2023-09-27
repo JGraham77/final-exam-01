@@ -1,8 +1,17 @@
 import React from "react";
 import { Books, Categories } from "../../types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { DELETE } from "../utils/fetcher-helper";
 
 const BookCard = ({ book, isDetails }: { book: Books; isDetails?: boolean }) => {
+    const nav = useNavigate();
+    const { id } = useParams();
+
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault;
+        DELETE(`/api/books/${id}`);
+        nav("/books");
+    };
     return (
         <div className="col-12">
             <div className="card">
@@ -22,12 +31,20 @@ const BookCard = ({ book, isDetails }: { book: Books; isDetails?: boolean }) => 
                         </Link>
                     )}
                     {isDetails && (
-                        <Link
-                            className="btn"
-                            to={`/books/${book.id}/update`}
-                        >
-                            Edit or Delete {book.id}
-                        </Link>
+                        <>
+                            <Link
+                                className="btn"
+                                to={`/books/${book.id}/update`}
+                            >
+                                Edit {book.id}
+                            </Link>
+                            <button
+                                onClick={handleDelete}
+                                className="btn"
+                            >
+                                Delete
+                            </button>
+                        </>
                     )}
                 </div>
             </div>

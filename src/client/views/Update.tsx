@@ -11,28 +11,25 @@ const Update = () => {
     const [author, setAuthor] = useState<string>("");
     const [price, setPrice] = useState<string>("");
     const [categories, setCategories] = useState<Categories[]>([]);
-    const [categoryid, setCategoryid] = useState("");
+    const [categoryid, setCategoryid] = useState();
 
     useEffect(() => {
         GET(`/api/books/${id}`).then((book) => {
             setTitle(book.title);
             setAuthor(book.author);
             setPrice(book.price);
+            setCategoryid(book.categoryid);
         });
-    }, []);
+    }, [id]);
 
     useEffect(() => {
-        GET("/api/categories").then((categories) => {
-            setCategories(categories.name);
-            setCategoryid(categories.id);
+        GET("/api/categories").then(setCategories);
+        GET(`/api/books/${id}`).then((book) => {
+            setTitle(book.title);
+            setPrice(book.price);
+            setCategoryid(book.categoryid);
         });
     }, []);
-
-    // const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault;
-    //     DELETE(`/api/books/${id}`);
-    //     nav("/books");
-    // };
 
     const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -66,21 +63,22 @@ const Update = () => {
                     onChange={(e) => setPrice(e.target.value)}
                 />
                 <label htmlFor="categories">Categories</label>
-                {/* <select
+                <select
                     name="categories"
                     id="categories"
                     defaultValue={categoryid}
                     className="form-control"
                 >
-                    {categories.map((category) => (
-                        <option
-                            value={category.id}
-                            key={`category-id-${category.id}`}
-                        >
-                            {category.name}
-                        </option>
-                    ))}
-                </select> */}
+                    {categories &&
+                        categories.map((category) => (
+                            <option
+                                value={category.id}
+                                key={`category-id-${category.id}`}
+                            >
+                                {category.name}
+                            </option>
+                        ))}
+                </select>
                 <div className="p-2">
                     <button
                         onClick={handleUpdate}
