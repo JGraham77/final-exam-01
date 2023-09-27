@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Login from "./views/Login";
+import Register from "./views/Register";
+import AllBooks from "./views/AllBooks";
 
 interface AppProps {}
 
@@ -23,11 +25,11 @@ const App = (props: AppProps) => {
                     />
                     <Route
                         path="/register"
-                        element={<h1>Register</h1>}
+                        element={<Register />}
                     />
                     <Route
                         path="/books"
-                        element={<h1>Books</h1>}
+                        element={<AllBooks />}
                     />
                     <Route
                         path="/books/new"
