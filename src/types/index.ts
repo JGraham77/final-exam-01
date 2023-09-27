@@ -28,9 +28,9 @@ export interface Payload extends Users {
     userid?: number;
 }
 
-export interface ReqUser extends Request {
-    user?: Users | Payload;
-}
+// export interface ReqUser extends Request {
+//     user?: Users | Payload;
+// }
 
 declare global {
     namespace Express {
