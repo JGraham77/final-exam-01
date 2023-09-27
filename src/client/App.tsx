@@ -6,6 +6,9 @@ import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import AllBooks from "./views/AllBooks";
+import NewBook from "./views/NewBook";
+import PrivateRoute from "./components/PrivateRoute";
+import Update from "./views/Update";
 
 interface AppProps {}
 
@@ -33,11 +36,15 @@ const App = (props: AppProps) => {
                     />
                     <Route
                         path="/books/new"
-                        element={<h1>Create New Book</h1>}
+                        element={
+                            <PrivateRoute>
+                                <NewBook />
+                            </PrivateRoute>
+                        }
                     />
                     <Route
                         path="/books/:id/update"
-                        element={<h1>Update Book</h1>}
+                        element={<Update />}
                     />
                     <Route
                         path="/books/:id"

@@ -1,10 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { GET, POST } from "../utils/fetcher-helper";
+import { useParams, useNavigate } from "react-router-dom";
+import { GET, PUT } from "../utils/fetcher-helper";
 import { Categories } from "../../types";
 
-const NewBook = () => {
+const Update = () => {
+    const { id } = useParams();
     const nav = useNavigate();
     const [title, setTitle] = useState<string>("");
     const [author, setAuthor] = useState<string>("");
@@ -13,19 +14,32 @@ const NewBook = () => {
     const [categoryid, setCategoryid] = useState("");
 
     useEffect(() => {
-        GET("/api/categories").then((categories) => {
-            setCategories(categories);
-            setCategoryid(categories[0].id);
+        GET(`/api/books/${id}`).then((book) => {
+            setTitle(book.title);
+            setAuthor(book.author);
+            setPrice(book.price);
         });
     }, []);
 
-    const handleNewBook = (e: React.MouseEvent<HTMLButtonElement>) => {
+    useEffect(() => {
+        GET("/api/categories").then((categories) => {
+            setCategories(categories.name);
+            setCategoryid(categories.id);
+        });
+    }, []);
+
+    // const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    //     e.preventDefault;
+    //     DELETE(`/api/books/${id}`);
+    //     nav("/books");
+    // };
+
+    const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        POST(`/api/books`, { title, author, price, categoryid }).then((data) => {
-            nav(`/books`);
+        PUT(`/api/books/${id}`, { title, author, price, categoryid }).then((data) => {
+            nav(`/books/${id}`);
         });
     };
-
     return (
         <div>
             <h1>Add A New Book!</h1>
@@ -51,7 +65,8 @@ const NewBook = () => {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                 />
-                <select
+                <label htmlFor="categories">Categories</label>
+                {/* <select
                     name="categories"
                     id="categories"
                     defaultValue={categoryid}
@@ -65,13 +80,13 @@ const NewBook = () => {
                             {category.name}
                         </option>
                     ))}
-                </select>
+                </select> */}
                 <div className="p-2">
                     <button
-                        onClick={handleNewBook}
+                        onClick={handleUpdate}
                         className="btn"
                     >
-                        Add Book
+                        Update Book
                     </button>
                 </div>
             </form>
@@ -79,4 +94,4 @@ const NewBook = () => {
     );
 };
 
-export default NewBook;
+export default Update;
