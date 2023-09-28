@@ -58,7 +58,7 @@ router.put("/:id", tokenCheck, async (req, res) => {
             return;
         }
 
-        await db.books.update(categoryid, title, author, price, bookid);
+        await db.books.update(title, author, price, categoryid, bookid);
         res.status(201).json({ message: "Successfully updated book!" });
     } catch (error) {
         console.log(error);

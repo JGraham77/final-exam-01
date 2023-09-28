@@ -18,7 +18,7 @@ const Update = () => {
             setTitle(book.title);
             setAuthor(book.author);
             setPrice(book.price);
-            setCategoryid(book.categoryid);
+            setCategoryid(book.setCategoryid);
         });
     }, [id]);
 
@@ -33,9 +33,8 @@ const Update = () => {
 
     const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        PUT(`/api/books/${id}`, { title, author, price, categoryid }).then((data) => {
-            nav(`/books/${id}`);
-        });
+        PUT(`/api/books/${id}`, { title, author, price, categoryid });
+        nav(`/books/${id}`);
     };
     return (
         <div>
@@ -69,15 +68,14 @@ const Update = () => {
                     defaultValue={categoryid}
                     className="form-control"
                 >
-                    {categories &&
-                        categories.map((category) => (
-                            <option
-                                value={category.id}
-                                key={`category-id-${category.id}`}
-                            >
-                                {category.name}
-                            </option>
-                        ))}
+                    {categories.map((category) => (
+                        <option
+                            value={category.id}
+                            key={`category-id-${category.id}`}
+                        >
+                            {category.name}
+                        </option>
+                    ))}
                 </select>
                 <div className="p-2">
                     <button
